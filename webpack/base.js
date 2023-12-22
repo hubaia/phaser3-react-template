@@ -11,11 +11,32 @@ module.exports = {
 		path: path.resolve("dist"),
 		filename: "index_bundle.js",
 	},
+	// devServer:{
+	// 	static:{
+	// 		directory: path.join(__dirname,"/"),
+	// 	}
+	// },
 	module: {
 		rules: [
 			{
+                test: /\.obj$/,
+                loader: 'webpack-obj-loader'
+            },
+			{
 				test: /\.css$/,
 				use: [{ loader: "style-loader" }, { loader: "css-loader" }],
+			},
+			{
+				test: /\.less$/,
+				use: [
+					require.resolve('style-loader'),
+					{
+						loader: require.resolve('css-loader')
+					},
+					{
+						loader: require.resolve('less-loader'), // compiles Less to CSS
+					},
+				],
 			},
 			{
 				test: /\.js$/,
